@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Weather App</title>
+  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <!-- Favicon and Apple Touch Icons -->
+  <link rel="icon" type="image/x-icon" href="/images/icon.ico">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon-iphone60x60.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="images/apple-touchicon-ipad-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touchicon-iphone-retina-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="images/apple-touchicon-ipad-retina-152x152.png">
+
+</head>
+<body>
+<div class="card">
+  <div class="search">
+    <input type="text" placeholder="enter city name"
+    spellcheck="false">
+    <button><img src="images/search.png"></button>
+  </div>
+  <div class="error">
+    <p>Invalid city name</p>
+  </div>
+  <div class="weather">
+    <img src="images/rain.png" class="weather-icon">
+    <h1 class="temp">22°f</h1>
+    <h2 class="city">New York</h2>
+    <div class="details">
+      <div class="col">
+        <img src="images/humidity.png">
+        <div>
+          <p class="humidity">50%</p>
+          <p>Humidity</p>
+         </div>
+      </div>
+      <div class="col">
+        <img src="images/wind.png">
+        <div>
+          <p class="wind">15 mph</p>
+          <p>Wind Speed</p>
+         </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const apiKey = "f97ca283ac6d456f8b76a4d63462263d";
+const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=";
+
+const searchBox = document.querySelector(".search input");
+const searchBtn = document.querySelector(".search button");
+const weatherIcon = document.querySelector(".weather-icon")
+
+async function checkWeather(city){
+  const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+  
+  if(response.status == 404){
+    document.querySelector(".error").style.display = "block";
+    document.querySelector(".weather").style.display = "none";
+  }
+  else{
+
+    let data = await response.json();
+
+    console.log(data);
+
+    document.querySelector(".city").innerHTML = data.name;
+    document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°f";
+    document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
+    document.querySelector(".wind").innerHTML = data.wind.speed + " mph";
+
+    if(data.weather[0].main == "Clouds"){
+        weatherIcon.src = "images/clouds.png";
+    }
+    else if(data.weather[0].main == "Clear"){
+      weatherIcon.src = "images/clear.png";
+    }
+    else if(data.weather[0].main == "Rain"){
+      weatherIcon.src = "images/rain.png";
+    }
+    else if(data.weather[0].main == "Drizzle"){
+      weatherIcon.src = "images/drizzle.png";
+    }
+    else if(data.weather[0].main == "Mist"){
+      weatherIcon.src = "images/mist.png";
+    }
+
+    document.querySelector(".weather").style.display = "block";
+    document.querySelector(".error").style.display = "none";
+  }
+}
+
+searchBox.addEventListener("keypress", function(event) {
+  if (event.key === "Enter") {
+    event.preventDefault();
+    checkWeather(searchBox.value);
+  }
+});
+
+
+searchBtn.addEventListener("click", ()=>{
+  checkWeather(searchBox.value);
+})
+
+
+</script>
+</body>
+</html>
