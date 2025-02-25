@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-weather/1.0.0/bootstrap-weather.dark.min.css" integrity="sha512-NxaAbVXIFKVQRbsaSlg55ZKsdja0n2qKUkjMHZp752MLYfCAsJJ9u7krsiAH0M633Sca/Z8avwHZuTDaBBw/Eg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  
+
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,8 +30,8 @@
 
 <div class="card mt-0">
   <div class="search">
-    <input class="mb-0" type="text" placeholder="enter city name" spellcheck="false">
-    <button class="btn" style="border: none !important; background: transparent; padding: 0; outline: none;">
+    <input class="mb-0" type="text" placeholder="enter city name" spellcheck="false" aria-label="Enter city name for weather search">
+    <button class="btn" style="border: none !important; background: transparent; padding: 0; outline: none;" aria-label="Search weather">
       <i class="bi bi-search" style="font-size: 24px; color: white"></i>
     </button>
   </div>
@@ -40,21 +40,21 @@
   </div>
   <div class="mb-0 mt-0 weather" style="padding: 0; margin: 0;">
     <div id="weather-icon">
-      <img src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/clear-day.svg" alt="Clear Day Icon" width="250" id="weather-img">
+      <img src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/clear-day.svg" alt="Clear Day Icon" width="250" id="weather-img" aria-label="Clear weather icon">
     </div>
     <h1 class="temp" style="margin: 0.2vh 0;">22°f</h1>
-    <h2 class="city" style="margin: 0.2vh 0;">New York</h2>
+    <h2 class="city" style="margin: 0.2vh 0;" aria-label="City name">New York</h2>
     <span id="weather-text"></span>
     <div class="details">
       <div class="col">
-        <img src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/mist.svg">
+        <img src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/mist.svg" alt="Humidity icon" aria-label="Humidity percentage">
         <div>
           <p class="humidity mb-0" style="margin: 0; padding: 0;">50%</p>
           <p class="mt-0" style="margin: 0; padding: 0;">Humidity</p>
         </div>
       </div>
       <div class="col">
-        <img src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/wind.svg" alt="Wind Icon" id="wind-icon">
+        <img src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/wind.svg" alt="Wind Icon" id="wind-icon" aria-label="Wind speed">
         <div>
           <p class="wind mb-0" style="margin: 0; padding: 0;">15 mph</p>
           <p class ="mt-0" style="margin: 0; padding: 0">Wind Speed</p>
@@ -93,22 +93,27 @@ async function checkWeather(city){
     if(data.weather[0].main == "Clear"){
         document.getElementById("weather-img").src = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/clear-day.svg";
         document.getElementById("weather-text").innerText = "Clear";
+        document.getElementById("weather-img").setAttribute("aria-label", "Clear weather");
     }
     else if(data.weather[0].main == "Clouds"){
         document.getElementById("weather-img").src = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/cloudy.svg";
         document.getElementById("weather-text").innerText = "Cloudy";
+        document.getElementById("weather-img").setAttribute("aria-label", "Cloudy weather");
     }
     else if(data.weather[0].main == "Rain"){
         document.getElementById("weather-img").src = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/rain.svg";
         document.getElementById("weather-text").innerText = "Rain";
+        document.getElementById("weather-img").setAttribute("aria-label", "Rainy weather");
     }
     else if(data.weather[0].main == "Drizzle"){
         document.getElementById("weather-img").src = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/drizzle.svg";
         document.getElementById("weather-text").innerText = "Drizzle";
+        document.getElementById("weather-img").setAttribute("aria-label", "Drizzling weather");
     }
     else if(data.weather[0].main == "Snow"){
       document.getElementById("weather-img").src = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/snow.svg";
       document.getElementById("weather-text").innerText = "Snowy";
+      document.getElementById("weather-img").setAttribute("aria-label", "Snowy weather");
   }
 
     document.querySelector(".weather").style.display = "block";
@@ -124,10 +129,9 @@ searchBox.addEventListener("keypress", function(event) {
 });
 
 
-searchBtn.addEventListener("click", ()=>{
-  checkWeather(searchBox.value);
+searchBtn.addEventListener("click", ()=>{ 
+  checkWeather(searchBox.value); 
 })
-
 
 </script>
 </body>
