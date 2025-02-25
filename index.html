@@ -2,16 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Weather App</title>
+  <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1.0">
+  <title>Weather Wedge</title>
+
+  <link href="manifest.json" rel="manifest">
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-weather/1.0.0/bootstrap-weather.dark.min.css" integrity="sha512-NxaAbVXIFKVQRbsaSlg55ZKsdja0n2qKUkjMHZp752MLYfCAsJJ9u7krsiAH0M633Sca/Z8avwHZuTDaBBw/Eg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  <!-- Favicon and Apple Touch Icons -->
+
   <link rel="icon" type="image/x-icon" href="/images/icon.ico">
   <link rel="apple-touch-icon" href="images/apple-touch-icon-iphone60x60.png">
   <link rel="apple-touch-icon" sizes="60x60" href="images/apple-touchicon-ipad-76x76.png">
@@ -20,33 +27,38 @@
 
 </head>
 <body>
-<div class="card">
+
+<div class="card mt-0">
   <div class="search">
-    <input type="text" placeholder="enter city name"
-    spellcheck="false">
-    <button><img src="images/search.png"></button>
+    <input type="text" placeholder="enter city name" spellcheck="false">
+    <button class="btn" style="border: none !important; background: transparent; padding: 0; outline: none;">
+      <i class="bi bi-search" style="font-size: 24px; color: white"></i>
+    </button>
   </div>
   <div class="error">
     <p>Invalid city name</p>
   </div>
-  <div class="weather">
-    <img src="images/rain.png" class="weather-icon">
-    <h1 class="temp">22°f</h1>
-    <h2 class="city">New York</h2>
+  <div class="weather" style="padding: 1vh 0; margin: 0;">
+    <div id="weather-icon">
+      <img src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/clear-day.svg" alt="Clear Day Icon" width="250" id="weather-img">
+    </div>
+    <h1 class="temp" style="margin: 0.2vh 0;">22°f</h1>
+    <h2 class="city" style="margin: 0.2vh 0;">New York</h2>
+    <span id="weather-text"></span>
     <div class="details">
       <div class="col">
-        <img src="images/humidity.png">
+        <img src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/mist.svg">
         <div>
-          <p class="humidity">50%</p>
-          <p>Humidity</p>
-         </div>
+          <p class="humidity" style="padding: 1vh 0; margin: 0;">50%</p>
+          <p style="padding: 1vh 0; margin: 0;">Humidity</p>
+        </div>
       </div>
       <div class="col">
-        <img src="images/wind.png">
+        <img src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/wind.svg" alt="Wind Icon" id="wind-icon">
         <div>
-          <p class="wind">15 mph</p>
-          <p>Wind Speed</p>
-         </div>
+          <p class="wind" style="padding: 1vh 0; margin: 0;">15 mph</p>
+          <p style="padding: 1vh 0; margin: 0;">Wind Speed</p>
+        </div>
       </div>
     </div>
   </div>
@@ -73,24 +85,26 @@ async function checkWeather(city){
     console.log(data);
 
     document.querySelector(".city").innerHTML = data.name;
-    document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°f";
+    document.querySelector(".temp").innerHTML = Math.round(data.main.temp) + "°F";
     document.querySelector(".humidity").innerHTML = data.main.humidity + "%";
     document.querySelector(".wind").innerHTML = data.wind.speed + " mph";
+    document.getElementById("wind-icon").src = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/wind.svg";
 
-    if(data.weather[0].main == "Clouds"){
-        weatherIcon.src = "images/clouds.png";
+    if(data.weather[0].main == "Clear"){
+        document.getElementById("weather-img").src = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/clear-day.svg";
+        document.getElementById("weather-text").innerText = "clear-day";
     }
-    else if(data.weather[0].main == "Clear"){
-      weatherIcon.src = "images/clear.png";
+    else if(data.weather[0].main == "Clouds"){
+        document.getElementById("weather-img").src = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/cloudy.svg";
+        document.getElementById("weather-text").innerText = "clouds";
     }
     else if(data.weather[0].main == "Rain"){
-      weatherIcon.src = "images/rain.png";
+        document.getElementById("weather-img").src = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/rain.svg";
+        document.getElementById("weather-text").innerText = "rain";
     }
     else if(data.weather[0].main == "Drizzle"){
-      weatherIcon.src = "images/drizzle.png";
-    }
-    else if(data.weather[0].main == "Mist"){
-      weatherIcon.src = "images/mist.png";
+        document.getElementById("weather-img").src = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/drizzle.svg";
+        document.getElementById("weather-text").innerText = "drizzle";
     }
 
     document.querySelector(".weather").style.display = "block";
