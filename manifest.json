@@ -1,7 +1,6 @@
 {
     "name": "Weather Wedge",
     "short_name": "Weather Wedge",
-    "background_color": "#00FF00",
     "display": "standalone",
     "start_url": "https://nuketron.github.io/",
     "icons": [
