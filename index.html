@@ -49,15 +49,15 @@
       <div class="col">
         <img src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/mist.svg">
         <div>
-          <p class="humidity" style="padding: 1vh 0; margin: 0;">50%</p>
-          <p style="padding: 1vh 0; margin: 0;">Humidity</p>
+          <p class="humidity mb-0" style="margin: 0; padding: 0;">50%</p>
+          <p class="mt-0" style="margin: 0; padding: 0;">Humidity</p>
         </div>
       </div>
       <div class="col">
         <img src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/wind.svg" alt="Wind Icon" id="wind-icon">
         <div>
-          <p class="wind" style="padding: 1vh 0; margin: 0;">15 mph</p>
-          <p style="padding: 1vh 0; margin: 0;">Wind Speed</p>
+          <p class="wind mb-0" style="margin: 0; padding: 0;">15 mph</p>
+          <p class ="mt-0" style="margin: 0; padding: 0">Wind Speed</p>
         </div>
       </div>
     </div>
@@ -92,20 +92,24 @@ async function checkWeather(city){
 
     if(data.weather[0].main == "Clear"){
         document.getElementById("weather-img").src = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/clear-day.svg";
-        document.getElementById("weather-text").innerText = "clear-day";
+        document.getElementById("weather-text").innerText = "Clear";
     }
     else if(data.weather[0].main == "Clouds"){
         document.getElementById("weather-img").src = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/cloudy.svg";
-        document.getElementById("weather-text").innerText = "clouds";
+        document.getElementById("weather-text").innerText = "Cloudy";
     }
     else if(data.weather[0].main == "Rain"){
         document.getElementById("weather-img").src = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/rain.svg";
-        document.getElementById("weather-text").innerText = "rain";
+        document.getElementById("weather-text").innerText = "Rain";
     }
     else if(data.weather[0].main == "Drizzle"){
         document.getElementById("weather-img").src = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/drizzle.svg";
-        document.getElementById("weather-text").innerText = "drizzle";
+        document.getElementById("weather-text").innerText = "Drizzle";
     }
+    else if(data.weather[0].main == "Snow"){
+      document.getElementById("weather-img").src = "https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/snow.svg";
+      document.getElementById("weather-text").innerText = "Snowy";
+  }
 
     document.querySelector(".weather").style.display = "block";
     document.querySelector(".error").style.display = "none";
