@@ -30,7 +30,7 @@
 
 <div class="card mt-0">
   <div class="search">
-    <input type="text" placeholder="enter city name" spellcheck="false">
+    <input class="mb-0" type="text" placeholder="enter city name" spellcheck="false">
     <button class="btn" style="border: none !important; background: transparent; padding: 0; outline: none;">
       <i class="bi bi-search" style="font-size: 24px; color: white"></i>
     </button>
@@ -38,7 +38,7 @@
   <div class="error">
     <p>Invalid city name</p>
   </div>
-  <div class="weather" style="padding: 1vh 0; margin: 0;">
+  <div class="mb-0 mt-0 weather" style="padding: 0; margin: 0;">
     <div id="weather-icon">
       <img src="https://bmcdn.nl/assets/weather-icons/v3.0/fill/svg/clear-day.svg" alt="Clear Day Icon" width="250" id="weather-img">
     </div>
@@ -64,7 +64,7 @@
   </div>
 </div>
 <script>
-const apiKey = "f97ca283ac6d456f8b76a4d63462263d";
+const apiKey = "f97ca283ac6d456f8b76a4d63462263d"; // I know, I know. Bad security practices. :( 
 const apiUrl = "https://api.openweathermap.org/data/2.5/weather?units=imperial&q=";
 
 const searchBox = document.querySelector(".search input");
